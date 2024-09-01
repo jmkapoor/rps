@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="rps.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let humanScore = 0
+let computerScore = 0
+
+function getComputerChoice() {
+    let x = Math.random();
+    if (x < 0.33) {
+        return "rock";
+    } else if (x < 0.66) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
+}
+
+
+function getHumanChoice() {
+    let choice = prompt("Enter rock, paper, or scissors:").toLowerCase();
+    while (!["rock", "paper", "scissors"].includes(choice)) {
+        choice = prompt("Invalid choice. Enter rock, paper, or scissors:").toLowerCase();
+    }
+    return choice;
+}
+
+
+
+
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        if (humanChoice === computerChoice) {
+            console.log(`It's a tie! Both chose ${humanChoice}.`);
+            return "tie";
+        }
+
+        if (
+            (humanChoice === "rock" && computerChoice === "scissors") ||
+            (humanChoice === "paper" && computerChoice === "rock") ||
+            (humanChoice === "scissors" && computerChoice === "paper")
+        ) {
+            console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+            return "win";
+        } else {
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+            return "lose";
+        }
+    }
+
+    for (let i = 0; i < 5; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+        const result = playRound(humanChoice, computerChoice);
+
+        if (result === "win") {
+            humanScore++;
+        } else if (result === "lose") {
+            computerScore++;
+        }
+
+        console.log(`Current Score - Human: ${humanScore}, Computer: ${computerScore}`);
+    }
+
+    // Final score after 5 rounds
+    console.log(`Final Score - Human: ${humanScore}, Computer: ${computerScore}`);
+}
+
+playGame();
+    </script>
+</body>
+</html>
